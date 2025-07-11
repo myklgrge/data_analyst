@@ -1,0 +1,377 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Music Data Analytics Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #f8f9fa;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 40px 32px 32px 32px;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            color: #1a237e;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 0;
+        }
+        h3 {
+            color: #3949ab;
+        }
+        p, li {
+            font-size: 1.08em;
+            line-height: 1.7;
+        }
+        ol, ul {
+            margin-left: 1.5em;
+        }
+        blockquote {
+            background: #f1f3f6;
+            border-left: 4px solid #3949ab;
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            border-radius: 6px;
+            color: #333;
+        }
+        .key-points {
+            background: #e3eafc;
+            border-radius: 8px;
+            padding: 1em 1.5em;
+            margin: 1.5em 0;
+        }
+        .dashboard {
+            margin: 2em 0 2em 0;
+            text-align: center;
+        }
+        img {
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+            margin: 1em 0;
+        }
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5em;
+            margin: 1em 0 2em 0;
+        }
+        .tools-list li {
+            background: #f1f3f6;
+            border-radius: 6px;
+            padding: 0.7em 1.2em;
+            min-width: 180px;
+            list-style: none;
+            margin: 0;
+        }
+        .final-note {
+            background: #fffde7;
+            border-left: 4px solid #ffd600;
+            padding: 1.2em 1.5em;
+            border-radius: 6px;
+            margin: 2em 0;
+        }
+        /* Navigation Bar Styles */
+        .navbar {
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 6px 24px 0 rgba(26,35,126,0.13);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5em;
+            padding: 0.05em 0.7em 0.05em 0.7em;
+            min-height: 28px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 0 0 18px 18px;
+            transition: box-shadow 0.3s;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7em;
+            position: relative;
+            margin-right: 2.5em;
+        }
+        .logo img {
+            height: 34px;
+            width: 34px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(26,35,126,0.13);
+        }
+        .logo span {
+            /* removed old font styles for logo name */
+        }
+        .logo-name {
+            font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 1.08em;
+            color: #1a237e;
+            letter-spacing: 1.2px;
+            text-shadow: none;
+            position: relative;
+            display: inline-block;
+            transition: color 0.25s, letter-spacing 0.25s, transform 0.25s;
+        }
+        .logo-name:hover {
+            color: #3949ab;
+            letter-spacing: 2.5px;
+            transform: scale(1.07) rotate(-2deg);
+            animation: logo-glow 0.7s cubic-bezier(.4,2,.6,1) 1;
+        }
+        @keyframes logo-glow {
+            0% { text-shadow: 0 0 0 #b3baff; }
+            40% { text-shadow: 0 0 12px #b3baff, 0 0 2px #3949ab; }
+            100% { text-shadow: 0 0 0 #b3baff; }
+        }
+        nav {
+            display: flex;
+            gap: 0.9em;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #1a237e;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            font-weight: 400;
+            font-size: 0.93em;
+            padding: 0.12em 0.5em;
+            border-radius: 5px;
+            position: relative;
+            transition: color 0.18s, box-shadow 0.18s, transform 0.18s, background 0.18s;
+            background: none;
+            box-shadow: none;
+        }
+        nav a:hover {
+            color: #3949ab;
+            background: #f5f7fa;
+            box-shadow: 0 2px 8px 0 rgba(26,35,126,0.08);
+            transform: translateY(-1px) scale(1.01);
+            text-shadow: none;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 16px 4px; }
+            h1 { font-size: 1.5em; }
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.12em 0.6em;
+                min-height: 32px;
+            }
+            nav {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.05em;
+            }
+            nav a {
+                padding: 0.3em 0;
+                width: 100%;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation Bar for Section Scrolling -->
+<div class="navbar">
+  <div class="logo" style="margin-right:2.5em;">
+    <a href="index.html" style="display:flex;align-items:center;gap:0.7em;text-decoration:none;color:inherit;cursor:pointer;">
+      <img src="mg-logo.png" alt="MG Logo">
+      <span>MICHEAL GEORGE</span>
+    </a>
+  </div>
+  <nav>
+    <a href="#top">Top</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#workflow" onclick="event.preventDefault();document.getElementById('workflow').scrollIntoView({behavior:'smooth'});">Workflow</a>
+    <a href="#finalnote" onclick="event.preventDefault();window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});">Final Note</a>
+  </nav>
+</div>
+<div class="container" id="top">
+    <h1>🎧 Tamil Music’s Most Popular Voices: A Data Analytics Report (2020–2024)</h1>
+    <p style="text-align:center; font-size:1.15em; color:#3949ab; margin-bottom:2em;">A professional analysis of streaming trends, gender representation, and song popularity in Tamil music.<br><span style="font-size:0.95em; color:#666;">By Micheal George</span></p>
+    <div class="key-points" id="findings">
+        <strong>Key Findings:</strong>
+        <ul>
+            <li>🔵 <b>Male-fronted tracks</b> consistently topped the charts every year.</li>
+            <li>🟣 <b>Duet numbers</b> were a strong second, pairing male and female voices.</li>
+            <li>🟡 <b>All-female tracks</b> were rare in the top 50.</li>
+        </ul>
+    </div>
+    <p>With <b>Python, SQL, and Tableau</b>, raw streaming data was transformed into interactive dashboards and clear insights. Explore the visuals and analysis below.</p>
+    <div class="dashboard" id="dashboard">
+        <!-- Tableau Dashboard Embed -->
+        <div class="tableauPlaceholder" id="viz1752244179342" style="position: relative;"><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;St&#47;StreamingTrendsinTamilSongsAGender-BasedAnalysis&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class="tableauViz" style="display: none;"><param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" /> <param name="embed_code_version" value="3" /> <param name="site_root" value="" /><param name="name" value="StreamingTrendsinTamilSongsAGender-BasedAnalysis/Dashboard1" /><param name="tabs" value="no" /><param name="toolbar" value="yes" /><param name="static_image" value="https://public.tableau.com/static/images/St/StreamingTrendsinTamilSongsAGender-BasedAnalysis/Dashboard1/1.png" /> <param name="animate_transition" value="yes" /><param name="display_static_image" value="yes" /><param name="display_spinner" value="yes" /><param name="display_overlay" value="yes" /><param name="display_count" value="yes" /><param name="language" value="en-US" /></object></div>
+    </div>
+    <!-- ...existing code... -->
+
+
+
+<div class="tableauPlaceholder" id="viz1752244179342" style="position: relative;"><h3 data-end="535" data-start="496"><strong data-end="535" data-start="503">1. Who Dominates the Charts?</strong></h3>
+<p data-end="608" data-start="536"><strong data-end="551" data-start="536">Chart used:</strong> <em data-end="608" data-start="552">Stacked Bar Chart – Song Count by Gender Type per Year</em></p>
+<blockquote data-end="857" data-start="610">
+<p data-end="857" data-start="612">Over all five years, <strong data-end="687" data-start="633">male-led songs consistently held the largest share</strong> in the top 50.<br data-end="705" data-start="702" />
+<strong data-end="716" data-start="707">Duets</strong> followed closely in most years.<br data-end="751" data-start="748" />
+<strong data-end="774" data-start="753">Female-only songs</strong> were significantly fewer in comparison — rarely crossing even 10% in a given year.</p></blockquote><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg38xRB9PCbIhtJxQSD4V9h78r5C_cBrHHNAa9ITcb8DIZ1wMqcFojXKGa7Ysak8HS-TedIIaYtEgeTvYJRZRLNlq4IVBzWqiVx893AZ4Ass3YVMUrv0NvN9ZALPbGYL4DNhWQMiQ-z6VUIDjeFTa1-EjiNdFMRcxModJcwQ67NZrFu1WaFlfxXNMNoBvY/s924/Screenshot%202025-07-11%20201140.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="255" data-original-width="924" height="130" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg38xRB9PCbIhtJxQSD4V9h78r5C_cBrHHNAa9ITcb8DIZ1wMqcFojXKGa7Ysak8HS-TedIIaYtEgeTvYJRZRLNlq4IVBzWqiVx893AZ4Ass3YVMUrv0NvN9ZALPbGYL4DNhWQMiQ-z6VUIDjeFTa1-EjiNdFMRcxModJcwQ67NZrFu1WaFlfxXNMNoBvY/w472-h130/Screenshot%202025-07-11%20201140.png" width="472" /></a></div><br /><h3 data-end="914" data-start="864"><strong data-end="914" data-start="870">2. Does Gender Affect Popularity Scores?</strong></h3><p data-end="988" data-start="915"><strong data-end="930" data-start="915">Chart used:</strong> <em data-end="988" data-start="931">Area Graph – Average Popularity by Gender Type per Year</em></p><p>
+
+</p><blockquote data-end="1199" data-start="990">
+<p data-end="1199" data-start="992">Surprisingly, <strong data-end="1052" data-start="1006">popularity scores were relatively balanced</strong> across gender types.<br data-end="1076" data-start="1073" />
+Duets often had the highest average scores in some years, showing that collaborative vocals resonate well with listeners.</p></blockquote><p>&nbsp;</p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWU7h_rtcnuVfPt6L6p4XIfkKhCTExWZfpIOrWDUuFQPVAwJJgqTDMLpqUAa-dHumKeoUvVhEokHL3orKB9dt_YBdhes0Qbw_-caX3qqHpZU34CkJX39pzzy2jLoRThhFXLXe5bpZhs0bh3txr6Q4tWbLOIbBzqUdR65v7hjoB2D2ayc563OE6PbQpz78/s1319/Screenshot%202025-07-11%20203220.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="781" data-original-width="1319" height="360" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWU7h_rtcnuVfPt6L6p4XIfkKhCTExWZfpIOrWDUuFQPVAwJJgqTDMLpqUAa-dHumKeoUvVhEokHL3orKB9dt_YBdhes0Qbw_-caX3qqHpZU34CkJX39pzzy2jLoRThhFXLXe5bpZhs0bh3txr6Q4tWbLOIbBzqUdR65v7hjoB2D2ayc563OE6PbQpz78/w674-h360/Screenshot%202025-07-11%20203220.png" width="674" /></a></div><br /><p></p><p>Query used in SQL -&nbsp;</p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_1Q3yeoSBvaYazNw7IyWpK4v_fpKVSBtUcjps5IMBKCt8yPAbtBMmbEuA0qSjO9-Dh7h5YNowYFFjC13k3dmRWkunF4Oi7We4HdoZQnZvLX1AejyCx_5ipwx39pV428eSfg0cmee422kQYVfB-r05R_guPWbRcRpiqZrwBf68Hdz_xN1GoxTMv_mF_vo/s934/Screenshot%202025-07-11%20203624.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="258" data-original-width="934" height="133" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_1Q3yeoSBvaYazNw7IyWpK4v_fpKVSBtUcjps5IMBKCt8yPAbtBMmbEuA0qSjO9-Dh7h5YNowYFFjC13k3dmRWkunF4Oi7We4HdoZQnZvLX1AejyCx_5ipwx39pV428eSfg0cmee422kQYVfB-r05R_guPWbRcRpiqZrwBf68Hdz_xN1GoxTMv_mF_vo/w486-h133/Screenshot%202025-07-11%20203624.png" width="486" /></a></div><br /><h3 style="text-align: left;"><b>3. Top Song of Each Year&nbsp;</b></h3><div>Feel free to dive into my interactive dashboard above to find all the songs arranged in popularity over all the 5 years.</div><div>Used Row number and Partition By in my SQL query to get a Top 5 list of each year.<br />But I have included everything in my dashboard for you to check if your favourite song is in there. 🤪</div><div><br /></div><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyGD88y38kk3M1gxJgx838hpPhN7Zg71z0m7XAkWjjAlItlRZ0eJm_tlRQz62GscWIQCHjx_9Gpl3o8lUi02WhaH71dWZKOD6SYrAlcL0n6EK3Jr46J6-0k0n-GchXPyvXgT09b6GG7UFSRdRrgBxgvJWU2YkwOpzRoloNodLCXO5n7TcStAnmA1_VMVM/s1003/Screenshot%202025-07-11%20203952.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="300" data-original-width="1003" height="165" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyGD88y38kk3M1gxJgx838hpPhN7Zg71z0m7XAkWjjAlItlRZ0eJm_tlRQz62GscWIQCHjx_9Gpl3o8lUi02WhaH71dWZKOD6SYrAlcL0n6EK3Jr46J6-0k0n-GchXPyvXgT09b6GG7UFSRdRrgBxgvJWU2YkwOpzRoloNodLCXO5n7TcStAnmA1_VMVM/w550-h165/Screenshot%202025-07-11%20203952.png" width="550" /></a></div><br /><div><br /></div><div><h3 data-end="1666" data-start="1611"><strong data-end="1666" data-start="1618">4. Total Gender Share (All 5 Years Combined)</strong></h3>
+<blockquote data-end="2046" data-start="1726"><p data-end="1788" data-start="1728">Looking at the full 250-song list (50 per year x 5 years):</p>
+<ul data-end="1900" data-start="1791">
+<li data-end="1823" data-start="1791">
+<p data-end="1823" data-start="1793">🟦 <strong data-end="1807" data-start="1796">~60–70%</strong> were male-led</p>
+</li>
+<li data-end="1855" data-start="1826">
+<p data-end="1855" data-start="1828">🟪 <strong data-end="1842" data-start="1831">~25–30%</strong> were duets</p>
+</li>
+<li data-end="1896" data-start="1858">
+<p data-end="1896" data-start="1860">🟨 <strong data-end="1871" data-start="1863">&lt;10%</strong> were female-only songs</p>
+</li>
+</ul>
+<p data-end="2046" data-start="1903">It’s clear that <strong data-end="1948" data-start="1919">male vocals were dominant</strong> in terms of volume, though that doesn’t necessarily reflect quality or listener preference alone.</p></blockquote><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGE8_h0E8K_qwdEOrKNGJnxKWNJp_Fatchd_qKbrHiZev10cAue5HH_Di_IvjYUggXLaZlEnpc8OcQv0_60GRJY_i1NFrR37NfjfiaNjaQuFluZs3vqk_s6m3nmWwHylFUE8a62jW9D4yyWP-XJVBxK0sF4u2qF-LtgZFuLRrnJ3OaAxLRKXq8XE_9Jcw/s1332/Screenshot%202025-07-11%20205011.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="361" data-original-width="1332" height="283" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGE8_h0E8K_qwdEOrKNGJnxKWNJp_Fatchd_qKbrHiZev10cAue5HH_Di_IvjYUggXLaZlEnpc8OcQv0_60GRJY_i1NFrR37NfjfiaNjaQuFluZs3vqk_s6m3nmWwHylFUE8a62jW9D4yyWP-XJVBxK0sF4u2qF-LtgZFuLRrnJ3OaAxLRKXq8XE_9Jcw/w660-h283/Screenshot%202025-07-11%20205011.png" width="660" /></a></div><br /><p>&nbsp;</p><h3 data-end="2109" data-start="2053"><strong data-end="2109" data-start="2060">5. Who Owns the “Hit Zone”? (Popularity ≥ 65)</strong></h3>
+<p data-end="2182" data-start="2110"><strong data-end="2125" data-start="2110">Chart used:</strong>&nbsp;<i>Heat Map</i><em data-end="2182" data-start="2126">&nbsp;– High-Popularity Song Count per Gender Type</em></p>
+<blockquote data-end="2398" data-start="2184">
+<p data-end="2258" data-start="2186"><span style="font-size: medium;">When filtering for <strong data-end="2237" data-start="2205">only the highest-rated songs</strong> (popularity ≥ 65),</span></p>
+<ul data-end="2398" data-start="2261">
+<li data-end="2322" data-start="2261">
+<p data-end="2322" data-start="2263"><span style="font-size: medium;"><b>Male</b>-led songs made up the <strong data-end="2320" data-start="2290">majority of the “hit zone”</strong></span></p>
+</li>
+<li data-end="2356" data-start="2325">
+<p data-end="2356" data-start="2327"><span style="font-size: medium;"><b>Duets</b> appeared <b>occasionally</b></span></p>
+</li>
+<li data-end="2398" data-start="2359">
+<p data-end="2398" data-start="2361"><span style="font-size: medium;"><b>Female</b>-only tracks were <b>almost absent</b></span></p></li></ul></blockquote><p><br /></p><h3 style="text-align: left;">This wasn't about proving a point — just about asking a simple question: "Who sings the songs we hear most?"<br />
+<a id="workflow"></a>
+And the answers, as shown in the charts, were surprisingly consistent.</h3></div><div><br /></div><span><!--more--></span><div><br /></div><div>If you would like to know my work flow then continue along -</div><div><br /></div><div><br /></div><div><h3 data-end="210" data-start="185">🟨 1. Data Collection</h3>
+</div></div><blockquote style="border: none; margin: 0 0 0 40px; padding: 0px;"><div class="tableauPlaceholder" style="position: relative;"><div><p data-end="437" data-start="212" style="text-align: left;">For this project, I manually curated the <strong data-end="275" data-start="253">top 50 Tamil songs</strong> for each year between <strong data-end="315" data-start="298">2020 and 2024</strong>. The data was sourced from publicly available streaming charts and popularity lists (e.g., YouTube and Spotify rankings).</p></div></div></blockquote><div class="tableauPlaceholder" style="position: relative;">
+<p data-end="522" data-start="439" style="text-align: left;"><span><br />&nbsp;&nbsp; &nbsp;</span>However, the raw data wasn’t clean — it came with several unnecessary columns like:</p>
+<ul data-end="632" data-start="523">
+<li data-end="533" data-start="523">
+<p data-end="533" data-start="525">Loudness</p>
+</li>
+<li data-end="555" data-start="534">
+<p data-end="555" data-start="536">YouTube upload time</p>
+</li>
+<li data-end="569" data-start="556">
+<p data-end="569" data-start="558">View counts</p>
+</li>
+<li data-end="586" data-start="570">
+<p data-end="586" data-start="572">Thumbnail URLs</p>
+</li>
+<li data-end="601" data-start="587">
+<p data-end="601" data-start="589">Movie titles</p>
+</li>
+<li data-end="632" data-start="602">
+<p data-end="632" data-start="604">Language metadata<br />
+…and more.</p>
+</li>
+</ul>
+<p data-end="734" data-start="634">To make the dataset suitable for analysis, I performed an <strong data-end="724" data-start="692">initial cleaning using Excel</strong>, where I:</p>
+<ul data-end="866" data-start="735">
+<li data-end="765" data-start="735">
+<p data-end="765" data-start="737">Removed irrelevant columns</p>
+</li>
+<li data-end="814" data-start="766">
+<p data-end="814" data-start="768">Renamed headers for consistency across years</p>
+</li>
+<li data-end="866" data-start="815">
+<p data-end="866" data-start="817">Retained only the essential data for this project</p>
+</li>
+</ul>
+<p data-end="905" data-start="868">Each year’s cleaned dataset included:</p>
+<ul data-end="1035" data-start="906">
+<li data-end="925" data-start="906">
+<p data-end="925" data-start="908">🎵 <strong data-end="925" data-start="911">Track Name</strong></p>
+</li>
+<li data-end="949" data-start="926">
+<p data-end="949" data-start="928">🎤 <strong data-end="949" data-start="931">Artist Name(s)</strong></p>
+</li>
+<li data-end="1007" data-start="950">
+<p data-end="1007" data-start="952">⭐ <strong data-end="974" data-start="954">Popularity Score</strong> (standardized between 0 and 100)</p>
+</li>
+<li data-end="1035" data-start="1008">
+<p data-end="1035" data-start="1010">📅 <strong data-end="1035" data-start="1013">Year of Appearance</strong></p>
+</li>
+</ul>
+<blockquote data-end="1186" data-start="1037">
+<p data-end="1186" data-start="1039"><strong data-end="1048" data-start="1039">Note:</strong> These songs are not necessarily from albums released in that specific year, but represent the top-streamed Tamil tracks during that year.</p></blockquote><p><br /></p><h3 data-end="1855" data-start="1818">🟨 2<strong data-end="1855" data-start="1825">. Data Cleaning in Python</strong></h3>
+<blockquote data-end="2233" data-start="1857">
+<p data-end="1926" data-start="1859">Using Python (Pandas), I processed and cleaned the data as follows:</p>
+<ul data-end="2233" data-start="1929">
+<li data-end="1973" data-start="1929">
+<p data-end="1973" data-start="1931">Standardized column names across all years</p>
+</li>
+<li data-end="2057" data-start="1976">
+<p data-end="2057" data-start="1978">Split multiple artists from the same song into separate rows using <code data-end="2057" data-start="2045">.explode()</code></p>
+</li>
+<li data-end="2144" data-start="2060">
+<p data-end="2144" data-start="2062">Created a mapping of individual artists to their gender (male, female, or unknown)</p>
+</li>
+<li data-end="2233" data-start="2147">
+<p data-end="2233" data-start="2149">Labeled each song as <code data-end="2176" data-start="2170">Male</code>, <code data-end="2186" data-start="2178">Female</code>, or <code data-end="2197" data-start="2191">Duet</code> based on the combination of artists</p></li></ul></blockquote><p><span>&nbsp;&nbsp; &nbsp;</span><span>&nbsp;&nbsp; &nbsp;</span>&nbsp;<i>Will share the .py file and sql script through github repo</i></p><p><br /></p><h3 data-end="2429" data-start="2398">🟨 3<strong data-end="2429" data-start="2405">. SQL Data Analysis</strong></h3><blockquote data-end="2619" data-start="2431">
+<p data-end="2619" data-start="2433">After cleaning, the dataset was loaded into MySQL for further analysis.<br data-end="2507" data-start="2504" />
+I joined all five years into one master table with a <code data-end="2568" data-start="2562">year</code> column, and used SQL to answer key questions like:</p>
+</blockquote><p data-end="2634" data-start="2621"><strong data-end="2634" data-start="2621"><span>&nbsp;&nbsp; &nbsp;</span>Examples:</strong></p><p>
+
+
+</p><ul data-end="2791" data-start="2635">
+<li data-end="2689" data-start="2635">
+<p data-end="2689" data-start="2637">How many songs each year were Male, Female, or Duet?</p>
+</li>
+<li data-end="2737" data-start="2690">
+<p data-end="2737" data-start="2692">What's the average popularity by gender type?</p>
+</li>
+<li data-end="2791" data-start="2738">
+<p data-end="2791" data-start="2740">What gender type dominates the most popular tracks?</p></li></ul><div><br /></div><div><br /></div><h3 data-end="2893" data-start="2848">🟨 4<strong data-end="2893" data-start="2855">. Visualizing Insights in Tableau</strong></h3>
+<blockquote data-end="2970" data-start="2895">
+<p data-end="2970" data-start="2897">I used Tableau to visualize the trends and make the data more digestible.</p>
+</blockquote>
+<p data-end="2987" data-start="2972"><span>&nbsp;&nbsp; &nbsp;</span>🧩 Key Visuals:</p>
+<ol data-end="3468" data-start="2988">
+<li data-end="3154" data-start="2988">
+<p data-end="3154" data-start="2991"><strong data-end="3044" data-start="2991">Line Chart – Song Count per Gender Type Over Time</strong><br data-end="3047" data-start="3044" />
+<em data-end="3154" data-start="3050">“Male-led songs appeared most each year. Duets were common. Female-only tracks were relatively fewer.”</em></p>
+</li>
+<li data-end="3300" data-start="3156">
+<p data-end="3300" data-start="3159"><strong data-end="3205" data-start="3159">Bar Chart – Top Songs Ranked by Popularity</strong><br data-end="3208" data-start="3205" />
+<em data-end="3300" data-start="3211">“Shows which tracks had the highest average popularity — with gender type color-coded.”</em></p>
+</li>
+<li data-end="3468" data-start="3302">
+<p data-end="3468" data-start="3305"><strong data-end="3339" data-start="3305">Heatmap – Popularity vs Gender</strong><br data-end="3342" data-start="3339" />
+<em data-end="3468" data-start="3345">“Visualizes how different gender types spread across popularity ranges. Most high-popularity bins were male or duet-led.”</em></p></li></ol><div><i><br /></i></div><div><h3 data-end="4048" data-start="4024">🟨 5<strong data-end="4048" data-start="4031">. Tools Used</strong></h3>
+<blockquote data-end="4194" data-start="4049">
+<ul data-end="4194" data-start="4051">
+<li data-end="4088" data-start="4051">
+<p data-end="4088" data-start="4053">Python (Pandas) for data cleaning</p>
+</li>
+<li data-end="4124" data-start="4091">
+<p data-end="4124" data-start="4093">MySQL for structured querying</p>
+</li>
+<li data-end="4156" data-start="4127">
+<p data-end="4156" data-start="4129">Tableau for visualization</p>
+</li>
+<li data-end="4194" data-start="4159">
+<p data-end="4194" data-start="4161">Blogger for project documentation</p></li></ul></blockquote><p><br /></p><p>&nbsp;</p><h3 data-end="232" data-start="212">🟨 6. Final Note</h3>
+<p data-end="524" data-start="234">This was my <strong data-end="282" data-start="246">very first data analysis project</strong>, built completely from scratch — outside of tutorials, courses, and guided assignments. I’ve been stuck in that “how to become a data analyst” loop for a while, and this was my attempt to finally break out of it by doing something on my own.</p>
+<p data-end="748" data-start="526">What started as a small curiosity — “Who sings the songs we hear the most?” — turned into a full end-to-end project involving <strong data-end="678" data-start="652">manual data collection</strong>, <strong data-end="699" data-start="680">Python cleaning</strong>, <strong data-end="717" data-start="701">SQL querying</strong>, and <strong data-end="747" data-start="723">Tableau storytelling</strong>.</p>
+<p data-end="895" data-start="750">The core focus wasn’t just technical — it was about practicing how to <strong data-end="842" data-start="820">analyze a question</strong>, <strong data-end="861" data-start="844">find patterns</strong>, and <strong data-end="894" data-start="867">tell a story using data</strong>.</p>
+<p data-end="1069" data-start="897">If you found this interesting or have ideas on how I could take it further (like adding more years, genres, or languages), feel free to reach out. I’m just getting started.</p></div></div>                <script type="text/javascript">                    var divElement = document.getElementById('viz1752244179342');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='977px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+
